@@ -1,4 +1,4 @@
-# Backend - InterLearn
+# Dokumentasi API - InterLearn
 
 ## Endpoint Register & Login
 
@@ -44,6 +44,9 @@
       "role": "user_role"
     }
     ```
+    
+---
+
 ## Endpoint Materi
 
 ### Tampilkan Semua Materi
