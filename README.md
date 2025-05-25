@@ -52,22 +52,34 @@
 ### Tampilkan Semua Materi
 - `GET /api/materi`
   - Headers: Content-Type: application/json
-  - Form-data:
-    - Body > Raw
-  - JSON:
-      ```json
-    {
-      "nama": "user",
-      "email": "user@test.com",
-      "password": "user_password",
-      "role": "user_role"
-    }
-    ```
-        
+  - Authorization : Bearer Token
   - Response:
     ```json
     {
-      "message": "Registrasi berhasil"
+      "judul": "Materi 1",
+      ...,
+      ...,
+      ...,
+      "quiz": [
+        {
+          "pertanyaan": "Apa itu .....?",
+          "opsi": ["Opsi A", "Opsi B", "Opsi C", "Opsi D"],
+          "jawabanBenar": "Runtime"
+        }
+      ]
+    },
+    {
+      "judul": "Materi 2",
+      ...,
+      ...,
+      ...,
+      "quiz": [
+        {
+          "pertanyaan": "Apa itu .....?",
+          "opsi": ["Opsi A", "Opsi B", "Opsi C", "Opsi D"],
+          "jawabanBenar": "Runtime"
+        }
+      ]
     }
     ```
     
@@ -93,7 +105,7 @@
       ]
     }
     ```
-        
+
   - Response:
     ```json
     {
