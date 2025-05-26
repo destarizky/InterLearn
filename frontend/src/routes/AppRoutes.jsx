@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 
-const AppRoutes = () => {
+const AppRoutes = () => { //router 
     return (
         <Router>
             <PublicRoutes />
