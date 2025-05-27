@@ -16,7 +16,7 @@ const courses = [
     category: "Web Development",
     university: "Telkom Indonesia",
     imageUrl: "/courses/recently2.png",
-    universityLogo: "/logo-companies/telkomuniv.png",
+    universityLogo: "/logo-companies/telkom.png",
   },
 ];
 
@@ -55,7 +55,7 @@ const CourseCard = ({ course }) => {
 const Recently = () => {
   return (
     <div className='p-8'>
-      <h1 className="text-2xl font-bold text-blue-700 mb-6">Recently Viewed Courses</h1>
+      <h1 className="text-2xl font-bold text-blue-700 mb-6">Kursus yang Baru Dilihat</h1>
       <div className="flex flex-col md:flex-row md:space-x-4">
         {courses.map((course, index) => (
           <CourseCard key={index} course={course} />
