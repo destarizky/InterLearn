@@ -6,28 +6,28 @@ const allCourses = [
   {
     id: 1,
     title: "UI/UX Design Fundamentals",
-    description: "Master core foundation of UI/UX design and create intuitive digital experiences",
-    category: "Development",
-    image_url: "/courses/recently1.png",
-    institution: "Domestic Design Academy",
+    description: "Build a strong foundation in UI/UX design and create user-centered products",
+    category: "Design",
+    image_url: "/categories/uiuxcateg.png",
+    institution: "Tokopedia Design Academy",
     institution_logo: "/logo-companies/ui.png"
   },
   {
     id: 2,
     title: "Excel for Business Analysis",
-    description: "Master practical business analysis skills using Microsoft Excel spreadsheets",
-    category: "Business",
-    image_url: "/courses/recently1.png",
-    institution: "Bank Muamalat Indonesia Academy",
+    description: "Enhance your business analysis skills using advanced Excel techniques",
+    category: "Office Productivity",
+    image_url: "/categories/excelcateg.png",
+    institution: "Bank Rakyat Indonesia Academy",
     institution_logo: "/logo-companies/ui.png"
   },
   {
     id: 3,
     title: "Video Editing with Adobe Premiere Pro",
-    description: "Learn professional video editing skills with Adobe Premiere Pro for beginners to experts",
-    category: "IT & Software",
-    image_url: "/courses/recently1.png",
-    institution: "Multimedia Associates University",
+    description: "Learn the essentials of video editing with Adobe Premiere Pro for professional content creation",
+    category: "Video",
+    image_url: "/categories/editcateg.png",
+    institution: "Multimedia Nusantara University",
     institution_logo: "/logo-companies/ui.png"
   },
   {
@@ -35,16 +35,16 @@ const allCourses = [
     title: "Java Programming for Beginners",
     description: "Start coding with Java by learning basics through the core of this essential language",
     category: "Development",
-    image_url: "/courses/recently1.png",
+    image_url: "/categories/javacateg.png",
     institution: "Bandung Institute of Technology",
-    institution_logo: "/logo-companies/ui.png"
+    institution_logo: "/logo-companies/itb.png"
   },
   {
     id: 5,
     title: "Introduction to Health and Fitness",
     description: "Learn fundamental concepts of fitness training and nutrition for beginners",
     category: "Health",
-    image_url: "/courses/recently1.png",
+    image_url: "/categories/runcateg.png",
     institution: "Jakarta State University",
     institution_logo: "/logo-companies/ui.png"
   },
@@ -53,7 +53,7 @@ const allCourses = [
     title: "Effective Public Speaking",
     description: "Become a confident public speaker with techniques for impact in front of audiences",
     category: "Business",
-    image_url: "/courses/recently1.png",
+    image_url: "/categories/pscateg.png",
     institution: "Airlangga University",
     institution_logo: "/logo-companies/ui.png"
   },
@@ -64,25 +64,25 @@ const allCourses = [
     category: "IT & Software",
     image_url: "/courses/recently1.png",
     institution: "Telkom University",
-    institution_logo: "/logo-companies/ui.png"
+    institution_logo: "/logo-companies/telkomuniv.png"
   },
   {
     id: 8,
     title: "Business Strategy for Startups",
     description: "Explore frameworks and models to create a sustainable business strategy for new ventures",
     category: "Business",
-    image_url: "/courses/recently1.png",
+    image_url: "/categories/datacateg.png",
     institution: "Gadjah Mada University",
-    institution_logo: "/logo-companies/ui.png"
+    institution_logo: "/logo-companies/ugm.png"
   },
   {
     id: 9,
     title: "Adobe Photoshop Essentials for Beginners",
     description: "Master the basics of Adobe Photoshop for photo editing and digital art creation",
     category: "Design",
-    image_url: "/courses/recently1.png",
+    image_url: "/categories/adobecateg.png",
     institution: "Bina Nusantara University",
-    institution_logo: "/logo-companies/ui.png"
+    institution_logo: "/logo-companies/binus.png"
   }
 ];
 
@@ -106,27 +106,33 @@ const CourseCard = ({ course }) => {
 
   return (
     <div onClick={handleClick} className="cursor-pointer w-full">
-      <div className="bg-white rounded-lg overflow-hidden mb-2">
+      <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        {/* Image now takes full width of card and extends slightly down */}
         <img
           src={course.image_url}
           alt={course.title}
-          className="w-full h-32 object-cover"
+          className="w-full h-44 object-cover"
         />
-      </div>
-      <h3 className="text-sm font-semibold text-blue-800">{course.title}</h3>
-      <p className="text-xs text-gray-600 mt-1 line-clamp-2">{course.description}</p>
-      <div className="flex items-center mt-2">
-        <img
-          src={course.institution_logo}
-          alt={course.institution}
-          className="w-5 h-5 rounded-full mr-2"
-        />
-        <span className="text-xs text-gray-700">{course.institution}</span>
+        
+        <div className="p-4">
+          <h3 className="text-base font-medium text-blue-600 line-clamp-1">{course.title}</h3>
+          <p className="text-xs text-gray-600 mt-1 line-clamp-2">{course.description}</p>
+          <div className="mt-2">
+            <span className="text-xs text-gray-500">{course.category}</span>
+          </div>
+          <div className="flex items-center mt-3 pt-2 border-t border-gray-100">
+            <img
+              src={course.institution_logo}
+              alt={course.institution}
+              className="w-5 h-5 rounded-full mr-2"
+            />
+            <span className="text-xs text-gray-700">{course.institution}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
 // Komponen utama Courses
 const Courses = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -181,7 +187,7 @@ const Courses = () => {
 
       {/* Pagination */}
       <div className="flex justify-center items-center mt-8 space-x-1">
-        <span className="text-sm text-gray-500 mr-2">Products</span>
+        <span className="text-sm text-gray-500 mr-2">Previous</span>
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index + 1}
