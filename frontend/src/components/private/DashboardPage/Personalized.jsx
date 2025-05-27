@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const courses = [
   {
@@ -12,7 +13,7 @@ const courses = [
   {
     image: "/courses/personalized2.png",
     title: "Branding Essentials for Modern Business",
-    description: "Discover essential branding techniques to elevate your business’s identity.",
+    description: "Discover essential branding techniques to elevate your business's identity.",
     category: "Marketing",
     university: "Shopee Indonesia",
     universityLogo: "/logo-companies/shopee.png",
@@ -25,33 +26,77 @@ const courses = [
     university: "Padjadjaran University",
     universityLogo: "/logo-companies/pu.png",
   },
+  {
+    image: "/courses/personalized2.png",
+    title: "Branding Essentials for Modern Business",
+    description: "Discover essential branding techniques to elevate your business's identity.",
+    category: "Marketing",
+    university: "Shopee Indonesia",
+    universityLogo: "/logo-companies/shopee.png",
+  },
 ];
 
-const Personalized = () => {
+const CourseCard = ({ course }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/dashboard/detailcontent", { state: { course } });
+  };
+
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold text-blue-900 mb-6">Personalized Courses for You</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {courses.map((course, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src={course.image} alt={`Course ${index + 1}`} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h2 className="text-lg font-bold text-blue-900">{course.title}</h2>
-              <p className="text-gray-600 mt-2">{course.description}</p>
-              <p className="text-sm text-gray-500 mt-2">{course.category}</p>
-              <div className="flex items-center mt-4">
-                <img src={course.universityLogo} alt="University Logo" className="w-5 h-5 mr-2" />
-                <p className="text-sm text-gray-700">{course.university}</p>
-              </div>
-            </div>
+    <div onClick={handleClick} className="cursor-pointer w-[calc(33.33%-1rem)]">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="w-full overflow-hidden">
+          <img
+            src={course.image}
+            alt={course.title}
+            className="w-full h-48 object-cover"
+          />
+        </div>
+        <div className="p-4">
+          <h3 className="text-sm font-semibold text-blue-700">{course.title}</h3>
+          <p className="text-xs text-gray-600 mt-1 line-clamp-2">{course.description}</p>
+          <p className="text-xs text-gray-500 mt-1">{course.category}</p>
+          <div className="flex items-center mt-2">
+            <img
+              src={course.universityLogo}
+              alt={course.university}
+              className="w-5 h-5 rounded-full mr-2"
+            />
+            <span className="text-xs text-gray-700">{course.university}</span>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Personalized = () => {
+  const [visibleCourses, setVisibleCourses] = React.useState(3);
+
+  const handleViewMore = () => {
+    setVisibleCourses((prevVisibleCourses) => prevVisibleCourses + 3);
+  };
+
+  return (
+    <div className="py-6 px-12">
+      <h1 className="text-lg font-bold text-blue-700 mb-6">Kursus yang dirancang khusus untuk Anda</h1>
+      <div className="flex flex-wrap justify-between gap-y-6">
+        {courses.slice(0, visibleCourses).map((course, index) => (
+          <CourseCard key={index} course={course} />
         ))}
       </div>
-      <div className="mt-6 text-center">
-      <button className="mt-6 bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center">
-        View 3 More <i className="fas fa-chevron-down ml-2"></i>
-      </button>
-      </div>
+
+      {visibleCourses < courses.length && (
+        <div className="mt-4">
+          <button
+            onClick={handleViewMore}
+            className="text-blue-600 text-sm border border-blue-600 py-1 px-3 rounded-md flex items-center"
+          >
+            View 3 More <span className="ml-1">↓</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -29,8 +29,18 @@ const trendingCourses = [
     institution_logo: "/logo-companies/binus.png",
     image_url: "/courses/trending3.png",
     category: "Design"
+  },
+  {
+    course_id: 4,
+    title: "Adobe Photoshop Essentials for Beginners",
+    description: "Master the basics of Adobe Photoshop for photo editing and digital art creation.",
+    institution: "Bina Nusantara University",
+    institution_logo: "/logo-companies/binus.png",
+    image_url: "/courses/trending3.png",
+    category: "Design"
   }
 ];
+
 
 // Komponen untuk setiap Course Card
 const CourseCard = ({ course }) => {
@@ -42,7 +52,7 @@ const CourseCard = ({ course }) => {
 
   return (
     <div onClick={handleClick} className="cursor-pointer w-[calc(33.33%-1rem)]">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden border-2 border-transparent hover:border-blue-500 hover:shadow-lg transition-all duration-200">
         <div className="w-full overflow-hidden">
           <img
             src={course.image_url || "https://placehold.co/400x200?text=No+Image"}
@@ -77,7 +87,7 @@ const Trending = () => {
 
   return (
     <div className="py-6 px-12">
-      <h1 className="text-2xl font-bold text-blue-700 mb-6">Trending Now</h1>
+      <h1 className="text-lg font-bold text-blue-700 mb-6">Trending Now</h1>
       <div className="flex flex-wrap justify-between gap-y-6">
         {trendingCourses.slice(0, visibleCourses).map((course) => (
           <CourseCard key={course.course_id} course={course} />
@@ -90,14 +100,13 @@ const Trending = () => {
             onClick={handleViewMore}
             className="text-blue-600 text-sm border border-blue-600 py-1 px-3 rounded-md flex items-center"
           >
-            View 3 More <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+            View 3 More <span className="ml-1">↓</span>
           </button>
         </div>
       )}
     </div>
   );
 };
+
 
 export default Trending;
