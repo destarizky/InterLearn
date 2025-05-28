@@ -54,3 +54,24 @@ exports.deleteMateri = async (req, res) => {
   await materi.deleteOne();
   res.json({ message: 'Materi berhasil dihapus.' });
 };
+
+// GET semua quiz dari semua materi
+exports.getAllQuiz = async (req, res) => {
+  const materi = await Materi.find({}, 'quiz');
+  // Hanya kirim array quiz saja
+  const quizList = materi.map(m => ({
+    materiId: m._id,
+    quiz: m.quiz
+  }));
+  res.json(quizList);
+};
+
+// GET quiz dari satu materi berdasarkan ID
+exports.getQuizByMateriId = async (req, res) => {
+  const materi = await Materi.findById(req.params.id, 'quiz');
+  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan' });
+  res.json({
+    materiId: materi._id,
+    quiz: materi.quiz
+  });
+};
