@@ -9,7 +9,7 @@ exports.getAllMateri = async (req, res) => {
 // Fungsi untuk GET materi berdasarkan ID
 exports.getMateriById = async (req, res) => {
   const materi = await Materi.findById(req.params.id);
-  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan' });
+  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan!' });
   res.json(materi);
 };
 
@@ -30,11 +30,11 @@ exports.createMateri = async (req, res) => {
 // Fungsi untuk mengupdate materi (PUT)
 exports.updateMateri = async (req, res) => {
   const materi = await Materi.findById(req.params.id);
-  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan' });
+  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan!' });
 
   // hanya admin atau pengajar pemilik
   if (req.user.role !== 'admin' && materi.dibuatOleh.toString() !== req.user.id) {
-    return res.status(403).json({ message: 'Tidak punya izin mengedit materi ini' });
+    return res.status(403).json({ message: 'Tidak punya izin mengedit materi ini!' });
   }
 
   Object.assign(materi, req.body);
@@ -45,12 +45,12 @@ exports.updateMateri = async (req, res) => {
 // Fungsi untuk menghapus materi (DELETE)
 exports.deleteMateri = async (req, res) => {
   const materi = await Materi.findById(req.params.id);
-  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan' });
+  if (!materi) return res.status(404).json({ message: 'Materi tidak ditemukan!' });
 
   if (req.user.role !== 'admin' && materi.dibuatOleh.toString() !== req.user.id) {
-    return res.status(403).json({ message: 'Tidak punya izin menghapus materi ini' });
+    return res.status(403).json({ message: 'Tidak punya izin menghapus materi ini!' });
   }
 
   await materi.deleteOne();
-  res.json({ message: 'Materi dihapus' });
+  res.json({ message: 'Materi berhasil dihapus.' });
 };
