@@ -8,42 +8,42 @@ const Courses = () => {
             title: "Data Science Fundamentals",
             description: "Learn essential data analysis skills and tools",
             category_name: "Data Science",
-            image_url: "/images/courses/data-science.jpg"
+            image_url: "/courses/recently1.png"
         },
         {
             id: 2,
             title: "Full-Stack Development",
             description: "Master modern web development technologies",
             category_name: "Full-Stack",
-            image_url: "/images/courses/full-stack.jpg"
+            image_url: "/courses/recently2.png"
         },
         {
             id: 3,
             title: "Project Management",
             description: "Develop essential project management skills",
             category_name: "Project Management",
-            image_url: "/images/courses/project-management.jpg"
+            image_url: "/courses/trending1.png"
         },
         {
             id: 4,
             title: "User-Centric Web Design: Strategies for better UI/UX",
             description: "Become a UX/UI designer: Master Mobile and Web Design, User Interface + User Experience",
             category_name: "UI/UX Design",
-            image_url: "/images/courses/ui-ux-design.jpg"
+            image_url: "/courses/trending2.png"
         },
         {
             id: 5,
             title: "Adobe CC Masterclass: Photoshop, Illustrator, & XD",
             description: "Learn to design today with Photoshop, Illustrator, Adobe XD, Design & more!",
             category_name: "Graphic Design",
-            image_url: "/images/courses/adobe-cc.jpg"
+            image_url: "/courses/personalized1.png"
         },
         {
             id: 6,
             title: "Business Analysis Fundamentals - ECBA, CCBA, CBAP endorsed",
             description: "The Professional's Guide to learning the key business analysis concepts to thrive in your Business Analyst career!",
             category_name: "Business Analysis",
-            image_url: "/images/courses/business-analysis.jpg"
+            image_url: "/courses/personalized2.png"
         }
     ];
 

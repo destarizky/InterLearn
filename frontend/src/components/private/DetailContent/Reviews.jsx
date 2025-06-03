@@ -5,19 +5,19 @@ const Reviews = () => {
     {
       name: "Jessica",
       title: "Marketing Analyst",
-      image: "https://placehold.co/100x100",
+      image: "/avatar/jessica.png",
       review: "This course helped me understand data analysis from scratch. The real-world applications were invaluable!"
     },
     {
       name: "Farah",
       title: "Data Intern",
-      image: "https://placehold.co/100x100",
+      image: "/avatar/sarah.png",
       review: "This course provided a great foundation for my career in data analytics. Highly recommend it!"
     },
     {
       name: "Rahmat",
       title: "Finance Student",
-      image: "https://placehold.co/100x100",
+      image: "/avatar/rahmat.png",
       review: "Excellent course! The instructor explained everything clearly, and the exercises were challenging yet rewarding."
     }
   ];
