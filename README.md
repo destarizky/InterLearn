@@ -233,7 +233,7 @@
       "user": "ID_USER",
       "materi": "ID_MATERI",
       "skor": "SKOR",
-      "_id": "ID_RAPOT,
-      "tanggal": "timestamp
+      "_id": "ID_RAPOT",
+      "tanggal": "timestamp"
       }
     ```
