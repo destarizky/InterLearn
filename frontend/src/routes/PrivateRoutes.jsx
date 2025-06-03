@@ -6,6 +6,8 @@ import CompletedNone from '../pages/private/mycourses/completednone';
 import Inprogress from '../pages/private/mycourses/Inprogress';
 import LearningQuizPage from '../pages/private/mycourses/learningquiz';
 import LearningStartQuizPage from '../pages/private/mycourses/learningstartquiz';
+import LearningafterQuizPage from '../pages/private/mycourses/learningafterquiz';
+import LearningViewQuizPage from '../pages/private/mycourses/learningviewdetail';
 
 const PrivateRoutes = () => {
     return (
@@ -17,6 +19,8 @@ const PrivateRoutes = () => {
             <Route path="/dashboard/mycourses" element={<Inprogress />} />
             <Route path="/dashboard/workshop/learningquiz" element={<LearningQuizPage />} />
             <Route path="/dashboard/workshop/learningstartquiz" element={<LearningStartQuizPage />} />
+            <Route path="/dashboard/mycourses/learningafterquiz" element={<LearningafterQuizPage />} />
+            <Route path="/dashboard/workshop/learningviewdetail" element={<LearningViewQuizPage />} />
         </Routes>
     );
 };

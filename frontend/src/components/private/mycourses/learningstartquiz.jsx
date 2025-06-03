@@ -16,6 +16,9 @@ const Learningstartquiz = () => {
   // Timer states
   const [seconds, setSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(true);
+
+  // End Quiz Modal state
+  const [showEndQuizModal, setShowEndQuizModal] = useState(false);
   
   // Format time as mm:ss
   const formatTime = (totalSeconds) => {
@@ -27,13 +30,11 @@ const Learningstartquiz = () => {
   // Timer effect
   useEffect(() => {
     let interval = null;
-    
     if (timerActive) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds + 1);
       }, 1000);
     }
-    
     return () => {
       if (interval) clearInterval(interval);
     };
@@ -121,12 +122,22 @@ const Learningstartquiz = () => {
     }
   };
 
-  const handleAnswerSelect = (index) => {
-    setSelectedAnswer(index);
+  // End Quiz logic
+  const handleEndQuiz = () => {
+    setShowEndQuizModal(true);
   };
 
-  const handleGoBack = (path) => {
-    console.log(`Navigating to: ${path}`);
+  const handleCancelEndQuiz = () => {
+    setShowEndQuizModal(false);
+  };
+
+  const handleContinueEndQuiz = () => {
+    setShowEndQuizModal(false);
+    navigate('/dashboard/mycourses/learningafterquiz');
+  };
+
+  const handleAnswerSelect = (index) => {
+    setSelectedAnswer(index);
   };
 
   return (
@@ -345,25 +356,71 @@ const Learningstartquiz = () => {
             <button
               onClick={goToPrevQuestion}
               className="flex items-center text-blue-600 hover:text-blue-800"
+              disabled={currentQuestion === 0}
             >
               <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Previous
             </button>
-            
-            <button
-              onClick={goToNextQuestion}
-              className="flex items-center text-blue-600 hover:text-blue-800"
-            >
-              Next
-              <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            {currentQuestion < quizQuestions.length - 1 ? (
+              <button
+                onClick={goToNextQuestion}
+                className="flex items-center text-blue-600 hover:text-blue-800"
+              >
+                Next
+                <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ) : (
+              <button
+                onClick={handleEndQuiz}
+                className="flex items-center text-blue-600 hover:text-blue-800"
+              >
+                End Quiz
+                <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* End Quiz Modal */}
+      {showEndQuizModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md border">
+            <div className="flex items-center mb-3">
+              <svg className="w-6 h-6 text-blue-700 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M12 8v4m0 4h.01"/>
+              </svg>
+              <span className="text-blue-800 font-semibold text-base">
+                Are you sure want to end this quiz?
+              </span>
+            </div>
+            <div className="mb-6 text-sm text-blue-900">
+              Please double-check your answers before submitting, as you won’t be able to make changes afterward.
+            </div>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleCancelEndQuiz}
+                className="border border-blue-700 text-blue-700 px-4 py-2 rounded-md font-medium bg-white hover:bg-blue-50 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleContinueEndQuiz}
+                className="bg-blue-700 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-800 transition"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
