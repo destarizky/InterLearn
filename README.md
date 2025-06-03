@@ -213,7 +213,7 @@
     }
     ```
 
-    ### Tambah Nilai Rapot Baru
+### Tambah Nilai Rapot Baru
 - `POST /api/rapot`
   - Headers: Content-Type: application/json
   - Form-data:
@@ -234,6 +234,28 @@
       "materi": "ID_MATERI",
       "skor": "SKOR",
       "_id": "ID_RAPOT",
+      "tanggal": "timestamp"
+      }
+    ```
+### Edit Rapot
+- `PUT /api/rapot/id_rapot`
+  - Headers: Content-Type: application/json
+  - Form-data:
+    - Body > Raw
+  - JSON:
+      ```json
+    {
+      "skor": "skor"
+    }
+    ```
+        
+  - Response:
+    ```json
+    {
+      "_id": "ID_RAPOT",
+      "user": "ID_USER",
+      "materi": "ID_MATERI",
+      "skor": "skor",
       "tanggal": "timestamp"
       }
     ```
