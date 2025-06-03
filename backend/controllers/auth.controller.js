@@ -33,3 +33,13 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Fungsi untuk GET semua user
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, '_id nama email role');
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
