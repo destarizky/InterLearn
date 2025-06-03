@@ -191,3 +191,49 @@
     ```
     
 ---
+
+
+## Endpoint Rapot
+
+### Tampilkan Rapot Murid Tertentu
+- `GET /api/rapot/user/:userId`
+  - Headers: Content-Type: application/json
+  - Response:
+    ```json
+    {
+        "_id": "ID_RAPOT",
+        "user": "ID_USER",
+        "materi": {
+            "_id": "ID_MATERI",
+            "judul": "JUDUL_MATERI"
+        },
+        "skor": "SKOR",
+        "tanggal": "TIMESTAMP",
+        "__v": 0
+    }
+    ```
+
+    ### Tambah Nilai Rapot Baru
+- `POST /api/rapot`
+  - Headers: Content-Type: application/json
+  - Form-data:
+    - Body > Raw
+  - JSON:
+      ```json
+    {
+      "user": "ID_USER",
+      "materi": "ID_MATERI",
+      "skor": "SKOR"
+    }
+    ```
+
+  - Response:
+    ```json
+    {
+      "user": "ID_USER",
+      "materi": "ID_MATERI",
+      "skor": "SKOR",
+      "_id": "ID_RAPOT,
+      "tanggal": "timestamp
+      }
+    ```
