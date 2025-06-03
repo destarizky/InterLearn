@@ -24,3 +24,22 @@ exports.getRapotByUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Update rapot berdasarkan ID
+exports.updateRapotById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { skor } = req.body;
+    const updatedRapot = await Rapot.findByIdAndUpdate(
+      id,
+      { skor },
+      { new: true }
+    );
+    if (!updatedRapot) {
+      return res.status(404).json({ message: 'Rapot tidak ditemukan' });
+    }
+    res.json(updatedRapot);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

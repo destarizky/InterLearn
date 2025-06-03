@@ -8,4 +8,7 @@ router.post('/', rapotController.createRapot);
 // Ambil semua rapot milik user tertentu
 router.get('/user/:userId', rapotController.getRapotByUser);
 
+// Update rapot berdasarkan ID
+router.put('/:id', rapotController.updateRapotById);
+
 module.exports = router;
