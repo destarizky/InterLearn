@@ -96,13 +96,7 @@
       "deskripsi": "Pengantar backend JS",
       "videoUrl": "https://youtube.com/xyz",
       "teksPenjelasan": "Node.js adalah runtime...",
-      "quiz": [
-        {
-          "pertanyaan": "Apa itu .....?",
-          "opsi": ["Opsi A", "Opsi B", "Opsi C", "Opsi D"],
-          "jawabanBenar": "Runtime"
-        }
-      ]
+      "quiz": []
     }
     ```
 
@@ -113,19 +107,7 @@
       "deskripsi": "Pengantar backend JS",
       "videoUrl": "https://youtube.com/xyz",
       "teksPenjelasan": "Node.js adalah runtime...",
-      "quiz": [
-          {
-              "pertanyaan": "Apa itu .....?",
-              "opsi": [
-                  "Opsi A",
-                  "Opsi B",
-                  "Opsi C",
-                  "Opsi D"
-              ],
-              "jawabanBenar": "Runtime",
-                "_id": "910...123"
-          }
-      ],
+      "quiz": [],
       "dibuatOleh": "id_user",
       "_id": "123...910"
       }
@@ -144,13 +126,7 @@
       "deskripsi": "Pengantar backend JS",
       "videoUrl": "https://youtube.com/xyz",
       "teksPenjelasan": "Node.js adalah runtime...",
-      "quiz": [
-        {
-          "pertanyaan": "Apa itu .....?",
-          "opsi": ["Opsi A", "Opsi B", "Opsi C", "Opsi D"],
-          "jawabanBenar": "(update)"
-        }
-      ]
+      "quiz": []
     }
     ```
         
@@ -161,19 +137,7 @@
       "deskripsi": "Pengantar backend JS",
       "videoUrl": "https://youtube.com/xyz",
       "teksPenjelasan": "Node.js adalah runtime...",
-      "quiz": [
-          {
-              "pertanyaan": "Apa itu .....?",
-              "opsi": [
-                  "Opsi A",
-                  "Opsi B",
-                  "Opsi C",
-                  "Opsi D"
-              ],
-              "jawabanBenar": "(update)",
-                "_id": "910...123"
-          }
-      ],
+      "quiz": [],
       "dibuatOleh": "id_user",
       "_id": "123...910"
       }
