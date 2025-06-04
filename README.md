@@ -156,6 +156,110 @@
     
 ---
 
+## Endpoint Quiz
+
+### Buat Quiz
+- `PUT /api/quiz/id_materi`
+  - Headers: Content-Type: application/json
+  - Authorization : Bearer Token
+  - Role : pengajar, admin
+  - Form-data:
+    - Body > Raw
+  - JSON:
+    ```json
+    {
+      "questions": [
+        {
+          "question": "Apa ibu kota Indonesia?",
+          "options": ["Jakarta", "Bandung", "Surabaya", "Medan"],
+          "correctAnswer": "Jakarta"
+        },
+        {
+          "question": "2 + 2 = ?",
+          "options": ["2", "3", "4", "5"],
+          "correctAnswer": "4"
+        }
+      ]
+    }
+    ```
+
+  - Response:
+    ```json
+    {
+      "message": "Kuis berhasil dibuat",
+      "quiz": {
+        "_id": "665e9c51...",
+        "materiId": "665e9b2c...",
+        "questions": [
+          {
+            "question": "Apa ibu kota Indonesia?",
+            "options": ["Jakarta", "Bandung", "Surabaya", "Medan"],
+            "correctAnswer": "Jakarta"
+          },
+          {
+            "question": "2 + 2 = ?",
+            "options": ["2", "3", "4", "5"],
+            "correctAnswer": "4"
+          }
+        ]
+      }
+    }
+ 
+    ```
+
+### Tampil Quiz by Materi
+- `PUT /api/quiz/id_materi`
+  - Headers: Content-Type: application/json
+  - Authorization : Bearer Token
+  - Role : user
+  - Form-data:
+    - Body > Raw
+  - Response:
+    ```json
+    {
+      "message": "Kuis berhasil dibuat",
+      "quiz": {
+        "_id": "665e9c51...",
+        "materiId": "665e9b2c...",
+        "questions": [
+          {
+            "question": "Apa ibu kota Indonesia?",
+            "options": ["Jakarta", "Bandung", "Surabaya", "Medan"],
+            "correctAnswer": "Jakarta"
+          },
+          {
+            "question": "2 + 2 = ?",
+            "options": ["2", "3", "4", "5"],
+            "correctAnswer": "4"
+          }
+        ]
+      }
+    }
+    ```
+    
+### Submit Jawaban Quiz
+- `PUT /api/quiz/id_materi`
+  - Headers: Content-Type: application/json
+  - Authorization : Bearer Token
+  - Role : user
+  - Form-data:
+    - Body > Raw
+  - JSON:
+    ```json
+    {
+      "answers": ["Jakarta", "4"]
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Kuis selesai",
+      "total": 2,
+      "benar": 2
+    }
+    ```
+
+---
 
 ## Endpoint Rapot
 
