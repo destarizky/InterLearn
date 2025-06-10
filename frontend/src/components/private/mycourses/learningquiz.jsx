@@ -2,23 +2,50 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from '/logo/logo.png';
 
+// Sidebar data - same structure as learningviewdetail
+const sidebarModules = [
+  {
+    title: "Module 1",
+    subtitle: "Introduction to Data Analysis",
+    lessons: [
+      "Lesson 1.1: What is Data Analysis?",
+      "Lesson 1.2: Types of Data",
+      "Lesson 1.3: Tools and Technologies",
+      "Quiz",
+    ],
+  },
+  {
+    title: "Module 2",
+    subtitle: "Data Collection and Cleaning",
+    lessons: [],
+  },
+  {
+    title: "Module 3",
+    subtitle: "Data Manipulation with Excel & SQL",
+    lessons: [],
+  },
+  {
+    title: "Module 4",
+    subtitle: "Data Visualization with Power BI",
+    lessons: [],
+  },
+  {
+    title: "Module 5",
+    subtitle: "Basic Statistical Analysis",
+    lessons: [],
+  },
+  {
+    title: "Module 6",
+    subtitle: "Real-world Case Studies and Applications",
+    lessons: [],
+  },
+];
+
 const Learningquiz = () => {
   const navigate = useNavigate();
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
-  
-  // State to track expanded/collapsed modules
-  const [expandedModules, setExpandedModules] = useState({
-    // Module 1 is expanded by default
-    0: true
-  });
-
-  // Toggle module expansion
-  const toggleModule = (moduleIndex) => {
-    setExpandedModules(prev => ({
-      ...prev,
-      [moduleIndex]: !prev[moduleIndex]
-    }));
-  };
+  // For sidebar: track expanded/collapsed modules (only Module 1 open by default)
+  const [openModule, setOpenModule] = useState(0);
 
   // Mock quiz data
   const quizData = {
@@ -39,8 +66,8 @@ const Learningquiz = () => {
       action: "-"
     }
   };
-  
-  // Navigation links for breadcrumb
+
+  // Breadcrumb navigation links
   const navigationLinks = [
     { name: "Home", path: "/" },
     { name: "My Courses", path: "/courses" },
@@ -49,63 +76,7 @@ const Learningquiz = () => {
     { name: "Quiz", path: "/courses/data-analysis/module-1/quiz" }
   ];
 
-  // List of modules for sidebar with consistent structure
-  const modules = [
-    {
-      id: "introduction",
-      title: "Introduction",
-      isIntroduction: true
-    },
-    {
-      id: "module1",
-      number: 1,
-      title: "Introduction to Data Analysis",
-      lessons: [
-        { number: "1.1", title: "What is Data Analysis", completed: true },
-        { number: "1.2", title: "Types of Data", completed: true },
-        { number: "1.3", title: "Tools and Technologies", completed: true },
-        { title: "Quiz", isQuiz: true, active: true }
-      ]
-    },
-    {
-      id: "module2",
-      number: 2,
-      title: "Data Collection and Cleaning",
-      lessons: []
-    },
-    {
-      id: "module3",
-      number: 3,
-      title: "Data Manipulation with Excel & SQL",
-      lessons: []
-    },
-    {
-      id: "module4",
-      number: 4,
-      title: "Data Visualization with Power BI",
-      lessons: []
-    },
-    {
-      id: "module5",
-      number: 5,
-      title: "Basic Statistical Analysis",
-      lessons: []
-    },
-    {
-      id: "module6",
-      number: 6,
-      title: "Real-world Case Studies and Applications",
-      lessons: []
-    },
-    {
-      id: "final-exam",
-      title: "Final Exam",
-      isExam: true
-    }
-  ];
-
   const handleStartButtonClick = () => {
-    // Show confirmation dialog instead of starting quiz immediately
     setShowConfirmationDialog(true);
   };
 
@@ -115,7 +86,6 @@ const Learningquiz = () => {
 
   const handleContinueConfirmation = () => {
     setShowConfirmationDialog(false);
-    // Navigate directly to the quiz page
     navigate('/dashboard/workshop/learningstartquiz');
   };
 
@@ -124,173 +94,204 @@ const Learningquiz = () => {
     console.log(`Navigating to: ${path}`);
   };
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header with Logo and Border */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-full mx-auto px-4 py-4">
-          <div className="text-center flex items-center justify-center">
-            <img src={Logo} alt="Pintura" className="w-[125px] h-[25px] object-contain" />
-          </div>
-        </div>
-      </header>
+  const handleModuleClick = (idx) => {
+    setOpenModule(idx === openModule ? null : idx);
+  };
 
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-full mx-auto px-6 py-2 flex justify-between items-center">
-          <nav className="flex items-center text-sm">
-            {navigationLinks.map((link, index) => (
-              <React.Fragment key={link.path}>
-                <span 
-                  className={`cursor-pointer ${index === navigationLinks.length - 1 ? 'text-gray-700' : 'text-gray-500 hover:text-blue-600'}`}
-                  onClick={() => handleGoBack(link.path)}
-                >
-                  {link.name}
-                </span>
-                {index < navigationLinks.length - 1 && (
-                  <span className="mx-2 text-gray-400">›</span>
-                )}
-              </React.Fragment>
-            ))}
-          </nav>
-          
-          {/* Previous/Next Navigation */}
-          <div className="flex text-sm">
-            <button 
-              onClick={() => handleGoBack('/previous')}
-              className="text-blue-600 hover:text-blue-800 flex items-center"
-            >
-              <span className="mr-1">‹</span> Previous
-            </button>
-            <span className="mx-2 text-gray-300">|</span>
-            <button 
-              onClick={() => handleGoBack('/next')}
-              className="text-blue-600 hover:text-blue-800 flex items-center"
-            >
-              Next <span className="ml-1">›</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex flex-1 max-w-full">
-        {/* Sidebar - Fixed width */}
-        <div className="w-64 bg-gray-50 border-r border-gray-200">
-          {modules.map((module, moduleIndex) => (
-            <div key={module.id}>
-              {module.isIntroduction ? (
-                <button className="w-full px-4 py-3 text-left text-sm bg-blue-600 text-white font-medium">
-                  {module.title}
-                </button>
-              ) : module.isExam ? (
-                <button className="w-full px-4 py-3 text-left text-sm border-t border-gray-200 hover:bg-gray-100">
-                  {module.title}
-                </button>
-              ) : (
-                <>
-                  <button 
-                    className={`w-full px-4 py-2 text-left text-sm border-t border-gray-200 flex items-center justify-between ${
-                      moduleIndex === 1 ? 'bg-blue-50' : 'hover:bg-gray-100'
-                    }`}
-                    onClick={() => toggleModule(moduleIndex)}
-                  >
-                    <div>
-                      <div className="font-medium">Module {module.number}</div>
-                      <div className="text-xs text-gray-600">{module.title}</div>
-                    </div>
-                    {module.lessons && (
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        className={`h-4 w-4 text-gray-500 transition-transform ${expandedModules[moduleIndex] ? 'transform rotate-180' : ''}`} 
-                        viewBox="0 0 20 20" 
-                        fill="currentColor"
-                      >
-                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </button>
-                  {module.lessons && expandedModules[moduleIndex] && moduleIndex === 1 && (
-                    <div className="bg-blue-50">
-                      {module.lessons.map((lesson, lessonIndex) => (
-                        <div 
-                          key={lessonIndex}
-                          className="pl-4 pr-2 py-2 flex items-center border-t border-blue-100"
-                        >
-                          {lesson.completed && !lesson.isQuiz && (
-                            <svg className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                            </svg>
-                          )}
-                          {lesson.isQuiz && (
-                            <svg className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
-                            </svg>
-                          )}
-                          <span className="text-sm">{lesson.number ? `Lesson ${lesson.number}: ${lesson.title}` : lesson.title}</span>
-                          {lesson.number && (
-                            <svg className="h-4 w-4 text-gray-400 ml-auto flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
+  // Header section, matched with learningviewdetail
+  const Header = () => (
+    <header className="bg-white border-b">
+      <div className="w-full pt-2 pb-0 flex flex-col items-center">
+        <div className="w-full flex justify-center">
+          <div className="max-w-full mx-auto px-4 py-4">
+            <div className="text-center flex items-center justify-center">
+              <img src={Logo} alt="Pintura" className="w-[125px] h-[25px] object-contain" />
             </div>
-          ))}
-        </div>
-
-        {/* Main Quiz Content - Full width */}
-        <div className="flex-1 p-6 bg-white">
-          <h2 className="text-lg font-medium mb-4">Rules</h2>
-          <p className="mb-4">{quizData.rules.description}</p>
-          <p className="mb-2">There are {quizData.rules.questionCount} questions that must be completed in this quiz. Some of the conditions are as follows:</p>
-          
-          <ul className="list-disc pl-8 mb-4">
-            {quizData.rules.conditions.map((condition, index) => (
-              <li key={index} className="mb-1">{condition}</li>
-            ))}
-          </ul>
-          
-          <p className="mb-6">{quizData.rules.retakeInfo}</p>
-          <p className="mb-8">Good luck with your quiz!</p>
-
-          <h2 className="text-lg font-medium mb-2">Result</h2>
-          <div className="overflow-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr>
-                  <th className="bg-gray-100 text-left px-4 py-2">Date</th>
-                  <th className="bg-gray-100 text-left px-4 py-2">Percentage</th>
-                  <th className="bg-gray-100 text-left px-4 py-2">Status</th>
-                  <th className="bg-gray-100 text-left px-4 py-2">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border px-4 py-2">{quizData.result.date}</td>
-                  <td className="border px-4 py-2">{quizData.result.percentage}</td>
-                  <td className="border px-4 py-2">{quizData.result.status}</td>
-                  <td className="border px-4 py-2">{quizData.result.action}</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-
-          <div className="flex justify-end mt-6">
+        </div>
+        <div className="flex justify-between items-center w-full px-8 pb-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }}>
+          {/* Breadcrumbs */}
+          <nav className="text-gray-500 text-sm">
+            <ol className="flex space-x-2 items-center">
+              <li>Home</li>
+              <li className="mx-1">&gt;</li>
+              <li>My Courses</li>
+              <li className="mx-1">&gt;</li>
+              <li>Data Analysis Fundamentals</li>
+              <li className="mx-1">&gt;</li>
+              <li>Module 1</li>
+              <li className="mx-1">&gt;</li>
+              <li>
+                <span className="text-blue-700 font-semibold">Quiz</span>
+              </li>
+            </ol>
+          </nav>
+          {/* Prev/Next */}
+          <div className="flex items-center space-x-1 text-sm">
             <button
-              onClick={handleStartButtonClick}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded"
+              onClick={() => handleGoBack('/previous')}
+              className="text-blue-700 hover:underline flex items-center"
             >
-              Start
+              <span className="text-lg mr-1" style={{ lineHeight: 1 }}>&lt;</span>
+              Previous
+            </button>
+            <span className="text-gray-400 mx-2">|</span>
+            <button
+              onClick={() => handleGoBack('/next')}
+              className="text-blue-700 hover:underline flex items-center"
+            >
+              Next
+              <span className="text-lg ml-1" style={{ lineHeight: 1 }}>&gt;</span>
             </button>
           </div>
         </div>
       </div>
+    </header>
+  );
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white">
+      <Header />
+      {/* Main Content */}
+      <main className="flex flex-1 px-8 py-8 bg-white">
+        {/* Sidebar */}
+        <aside className="w-80 mr-8">
+          <div className="flex flex-col gap-3">
+            {/* Introduction */}
+            <button className="w-full text-left bg-[#2854C6] text-white rounded-[8px] px-4 py-2 font-semibold focus:outline-none">
+              Introduction
+            </button>
+            {/* Modules */}
+            {sidebarModules.map((mod, idx) => (
+              <div key={mod.title}>
+                <button
+                  onClick={() => handleModuleClick(idx)}
+                  className={`w-full flex flex-col items-start px-4 py-2 rounded-[8px] border border-[#E0E5F2] transition text-left mb-0 focus:outline-none ${
+                    openModule === idx
+                      ? "bg-[#2854C6] text-white"
+                      : "bg-white text-[#1B2342] hover:bg-[#F3F6FC]"
+                  }`}
+                >
+                  <div className="flex items-center w-full justify-between">
+                    <div>
+                      <div className="font-semibold">
+                        {mod.title}
+                      </div>
+                      <div className="text-xs text-inherit font-normal">
+                        {mod.subtitle}
+                      </div>
+                    </div>
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="none"
+                      className={`ml-2 transition-transform ${openModule === idx ? "rotate-180" : ""}`}
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M5 8l5 5 5-5" stroke={openModule === idx ? "#fff" : "#1B2342"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                {openModule === idx && mod.lessons.length > 0 && (
+                  <div className="bg-white border border-[#E0E5F2] rounded-b-[8px] px-0 py-2 mt-[-8px] mb-3">
+                    {mod.lessons.map((lesson, i) => (
+                      <button
+                        key={lesson}
+                        className={`flex items-center w-full py-2 pl-6 pr-2 text-left rounded-none border-0 bg-transparent transition group ${
+                          lesson === "Quiz"
+                            ? "text-[#2854C6] font-semibold"
+                            : "text-[#1B2342]"
+                        }`}
+                        style={{
+                          fontWeight: lesson === "Quiz" ? 600 : 400,
+                          fontSize: lesson === "Quiz" ? "16px" : "15px"
+                        }}
+                      >
+                        <span className="flex-1 truncate flex items-center gap-2">
+                          {/* Checkmark for all items in Module 1 */}
+                          {idx === 0 && (
+                            lesson === "Quiz" ? (
+                              <svg width="20" height="20" fill="none" className="mr-1" viewBox="0 0 20 20">
+                                <circle cx="10" cy="10" r="9" stroke="#2854C6" strokeWidth="1.5" fill="none"/>
+                                <path d="M7.5 10.5l2 2 3-4" stroke="#2854C6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            ) : (
+                              <svg width="20" height="20" fill="none" className="mr-1" viewBox="0 0 20 20">
+                                <circle cx="10" cy="10" r="9" stroke="#2FCB65" strokeWidth="1.5" fill="none"/>
+                                <path d="M7.5 10.5l2 2 3-4" stroke="#2FCB65" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            )
+                          )}
+                          {lesson === "Quiz" ? (
+                            <span>Quiz</span>
+                          ) : (
+                            <span>{lesson}</span>
+                          )}
+                        </span>
+                        <span>
+                          {lesson !== "Quiz" && (
+                            <svg width="16" height="16" fill="none"><path d="M6 4l4 4-4 4" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <button className="w-full text-left px-4 py-2 text-[#1B2342] font-semibold rounded-[8px] border border-[#E0E5F2] bg-white hover:bg-[#F3F6FC] mt-0">
+              Final Exam
+            </button>
+          </div>
+        </aside>
+
+        {/* Main Quiz Content */}
+        <section className="flex-1">
+          <div className="border rounded-lg px-8 py-8 bg-white">
+            <h2 className="text-lg font-medium mb-4">Rules</h2>
+            <p className="mb-4">{quizData.rules.description}</p>
+            <p className="mb-2">There are {quizData.rules.questionCount} questions that must be completed in this quiz. Some of the conditions are as follows:</p>
+            <ul className="list-disc pl-8 mb-4">
+              {quizData.rules.conditions.map((condition, index) => (
+                <li key={index} className="mb-1">{condition}</li>
+              ))}
+            </ul>
+            <p className="mb-6">{quizData.rules.retakeInfo}</p>
+            <p className="mb-8">Good luck with your quiz!</p>
+
+            <h2 className="text-lg font-medium mb-2">Result</h2>
+            <div className="overflow-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="bg-gray-100 text-left px-4 py-2">Date</th>
+                    <th className="bg-gray-100 text-left px-4 py-2">Percentage</th>
+                    <th className="bg-gray-100 text-left px-4 py-2">Status</th>
+                    <th className="bg-gray-100 text-left px-4 py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border px-4 py-2">{quizData.result.date}</td>
+                    <td className="border px-4 py-2">{quizData.result.percentage}</td>
+                    <td className="border px-4 py-2">{quizData.result.status}</td>
+                    <td className="border px-4 py-2">{quizData.result.action}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={handleStartButtonClick}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded"
+              >
+                Start
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
 
       {/* Confirmation Dialog */}
       {showConfirmationDialog && (
@@ -305,11 +306,9 @@ const Learningquiz = () => {
                 </div>
                 <h3 className="text-lg font-medium text-blue-700">Are you sure want to take this quiz?</h3>
               </div>
-              
               <p className="text-blue-700 mb-6 pl-11">
                 If you take this quiz, you will only be able to take it again 1 minute after the exam ends.
               </p>
-              
               <div className="flex justify-end space-x-2">
                 <button
                   onClick={handleCancelConfirmation}

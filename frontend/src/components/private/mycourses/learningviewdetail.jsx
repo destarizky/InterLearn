@@ -166,64 +166,77 @@ const LearningViewDetail = () => {
       <main className="flex flex-1 px-8 py-8 bg-white">
         {/* Sidebar */}
         <aside className="w-80 mr-8">
-          <div className="rounded-md border bg-white py-3 px-0 min-h-[500px]">
-            <div className="mb-1">
-              <button className="w-full text-left bg-blue-700 text-white rounded-t-md px-4 py-2 font-semibold">
-                Introduction
-              </button>
-            </div>
+          <div className="flex flex-col gap-3">
+            {/* Introduction */}
+            <button className="w-full text-left bg-[#2854C6] text-white rounded-[8px] px-4 py-2 font-semibold focus:outline-none">
+              Introduction
+            </button>
+            {/* Modules */}
             {sidebarModules.map((mod, idx) => (
-              <div key={mod.title} className="mb-1">
+              <div key={mod.title}>
                 <button
                   onClick={() => handleModuleClick(idx)}
-                  className={`
-                    w-full flex justify-between items-center px-4 py-2 text-left font-semibold
-                    rounded-md transition
-                    ${openModule === idx
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-white text-gray-700 hover:bg-gray-50"
-                    }
-                  `}
+                  className={`w-full flex flex-col items-start px-4 py-2 rounded-[8px] border border-[#E0E5F2] transition text-left mb-0 focus:outline-none ${
+                    openModule === idx
+                      ? "bg-[#2854C6] text-white"
+                      : "bg-white text-[#1B2342] hover:bg-[#F3F6FC]"
+                  }`}
                 >
-                  <span>
-                    {mod.title}
-                    <span className="block text-sm font-normal text-gray-500">
-                      {mod.subtitle}
-                    </span>
-                  </span>
-                  <span>
-                    {mod.lessons.length > 0 && (
-                      <svg width="20" height="20" fill="none" className={`inline ml-2 transform transition-transform ${openModule === idx ? "rotate-90" : ""}`}><path d="M7 9l3 3 3-3" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    )}
-                  </span>
+                  <div className="flex items-center w-full justify-between">
+                    <div>
+                      <div className="font-semibold">
+                        {mod.title}
+                      </div>
+                      <div className="text-xs text-inherit font-normal">
+                        {mod.subtitle}
+                      </div>
+                    </div>
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="none"
+                      className={`ml-2 transition-transform ${openModule === idx ? "rotate-180" : ""}`}
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M5 8l5 5 5-5" stroke={openModule === idx ? "#fff" : "#1B2342"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
                 </button>
                 {openModule === idx && mod.lessons.length > 0 && (
-                  <div className="ml-4">
+                  <div className="bg-white border border-[#E0E5F2] rounded-b-[8px] px-0 py-2 mt-[-8px] mb-3">
                     {mod.lessons.map((lesson, i) => (
                       <button
                         key={lesson}
-                        className={`
-                          flex items-center w-full py-2 px-2 text-left rounded
-                          ${lesson === "Quiz"
-                            ? "text-blue-700 font-semibold"
-                            : "text-gray-700"
-                          }
-                          hover:bg-blue-50
-                        `}
+                        className={`flex items-center w-full py-2 pl-6 pr-2 text-left rounded-none border-0 bg-transparent transition group ${
+                          lesson === "Quiz"
+                            ? "font-semibold"
+                            : "text-[#1B2342]"
+                        }`}
+                        style={{
+                          fontWeight: lesson === "Quiz" ? 600 : 400,
+                          fontSize: lesson === "Quiz" ? "16px" : "15px",
+                          color: lesson === "Quiz" ? "#1B2342" : undefined // Keep Quiz black
+                        }}
                       >
-                        <span className="flex-1 truncate flex items-center">
+                        <span className="flex-1 truncate flex items-center gap-2">
                           {/* Checkmark for all items in Module 1 */}
                           {idx === 0 && (
-                            <span className="mr-2 text-green-500">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M20 6L9 17l-5-5"/>
-                              </svg>
-                            </span>
+                            // Make the Quiz icon green like the lessons above, but keep the text black
+                            <svg width="20" height="20" fill="none" className="mr-1" viewBox="0 0 20 20">
+                              <circle cx="10" cy="10" r="9" stroke="#2FCB65" strokeWidth="1.5" fill="none"/>
+                              <path d="M7.5 10.5l2 2 3-4" stroke="#2FCB65" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                           )}
-                          {lesson}
+                          {lesson === "Quiz" ? (
+                            <span style={{ color: "#1B2342" }}>Quiz</span>
+                          ) : (
+                            <span>{lesson}</span>
+                          )}
                         </span>
                         <span>
-                          <svg width="16" height="16" fill="none"><path d="M6 4l4 4-4 4" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {lesson !== "Quiz" && (
+                            <svg width="16" height="16" fill="none"><path d="M6 4l4 4-4 4" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
                         </span>
                       </button>
                     ))}
@@ -231,7 +244,7 @@ const LearningViewDetail = () => {
                 )}
               </div>
             ))}
-            <button className="w-full text-left px-4 py-2 text-gray-700 font-semibold rounded-b-md hover:bg-gray-50">
+            <button className="w-full text-left px-4 py-2 text-[#1B2342] font-semibold rounded-[8px] border border-[#E0E5F2] bg-white hover:bg-[#F3F6FC] mt-0">
               Final Exam
             </button>
           </div>
