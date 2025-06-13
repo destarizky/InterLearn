@@ -327,3 +327,13 @@
       "tanggal": "timestamp"
       }
     ```
+
+### Delete Rapot
+- `DELETE /api/rapot/id_rapot`
+  - Headers: Content-Type: application/json
+  - Response:
+    ```json
+    {
+      "message": "Rapot berhasil dihapus"
+      }
+    ```
